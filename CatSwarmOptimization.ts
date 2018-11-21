@@ -72,7 +72,7 @@ class Cat {
     calculateFitness(): number {
 
         //TODO
-
+        
         return this.fitnessValue;
     }
 
