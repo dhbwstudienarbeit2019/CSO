@@ -1,0 +1,29 @@
+{
+  "name": "cso",
+  "version": "1.0.0",
+  "description": "Cat Swarm Optimization",
+  "main": "index.js",
+  "dependencies": {
+    "mersenne-twister": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhbwstudienarbeit2019/CSO.git"
+  },
+  "keywords": [
+    "cso",
+    "cat",
+    "swarm",
+    "optimization"
+  ],
+  "author": "Laura Kaipl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhbwstudienarbeit2019/CSO/issues"
+  },
+  "homepage": "https://github.com/dhbwstudienarbeit2019/CSO#readme"
+}
