@@ -3,7 +3,7 @@ import {Cat} from "./cat";
 import {Position} from "./Point";
 import * as MersenneTwister from 'mersenne-twister';
 
-class ClassicalSeekingMode implements ISeekingMode {
+export class ClassicalSeekingMode implements ISeekingMode {
     private cat: Cat;
     private copies: Cat[];
     private fitnessValues: number[];
@@ -12,8 +12,8 @@ class ClassicalSeekingMode implements ISeekingMode {
 
     constructor(private readonly seekingMemoryPool: number,
                 private readonly seekingRangeOfSelectedDimension: number,
-                private readonly  countsOfDimensionsToChange: number,
-                private readonly  selfPositionConsidering: boolean) {
+                private readonly countsOfDimensionsToChange: number,
+                private readonly selfPositionConsidering: boolean) {
     }
 
     private createCopies(): void {
@@ -26,14 +26,13 @@ class ClassicalSeekingMode implements ISeekingMode {
         for (let i = 0; i < this.j; i++) {
             const position = Position.doRandomPosition();
             const velocity = Position.doRandomPosition();
-            this.copies[i] = new Cat(position, velocity);
+            this.copies[i] = new Cat(position, velocity, this.cat.FunctionToOptimize);
         }
     }
 
     private changePosition(cat: Cat) {
         if (this.countsOfDimensionsToChange == 1) {
             const dimension = this.mersenneTwister.random();
-            const changer = this.mersenneTwister.random();
             const randomMove = (pos: Position, x, y) => ((this.mersenneTwister.random() > 0.5) ? pos.add : pos.subtract)(x, y);
             if (dimension < 0.5) {
                 cat.Position = randomMove(cat.Position, cat.Position.x * this.seekingRangeOfSelectedDimension, 0);
@@ -46,7 +45,7 @@ class ClassicalSeekingMode implements ISeekingMode {
             const catPos = cat.Position;
             cat.Position = new Position(
                 randomOffset(catPos.x, catPos.x * this.seekingRangeOfSelectedDimension),
-                randomOffset(catPos.y, catPos.y * this.seekingRangeOfSelectedDimension),
+                randomOffset(catPos.y, catPos.y * this.seekingRangeOfSelectedDimension)
             );
         }
     }
@@ -56,14 +55,12 @@ class ClassicalSeekingMode implements ISeekingMode {
             this.copies.forEach(cat => cat.SelectionProb = 1);
         } else {
             this.copies.forEach(cat =>
-                // TODO check if Math abs brackets are correclty set
                 cat.SelectionProb = Math.abs((cat.calculateFitness() - fitnessMax)) / (fitnessMax - fitnessMin)
             );
         }
     }
 
     private chooseNewPosition(): Position {
-        //Erzeuge Rouletterad & Wende es an
         let selectedCat;
         let probability = new Number[this.seekingMemoryPool + 1];
         probability[0] = 0;
@@ -97,6 +94,7 @@ class ClassicalSeekingMode implements ISeekingMode {
         for (let i = 1; i < this.fitnessValues.length; i++) {
             if (this.fitnessValues[i - 1] != this.fitnessValues[i]) {
                 allTheSame = false;
+                break;
             } else {
                 allTheSame = true;
             }
