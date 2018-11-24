@@ -2,6 +2,13 @@
     "$scheme": "https://raw.githubusercontent.com/dhbwstudienarbeit2019/frontend/parameter-scheme/frontend/src/schema/parameters.schema.json",
     "item": [
       {
+        "name": "maximumNumberOfIterations",
+        "description": "maximum number of iterations for optimization",
+        "parameter": {
+          "value": 500
+        }
+      },
+      {
         "name": "numberOfCats",
         "description": "how many cats should be in the swarm",
         "parameter": {

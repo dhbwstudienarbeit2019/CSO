@@ -1,8 +1,9 @@
 export interface Config {
+    maximumNumberOfIterations: number;
     numberOfCats: number;
     mixtureRatio: number;
     constantNumber: number;
-    selfPositionConsidering: Boolean;
+    selfPositionConsidering: boolean;
     countsOfDimensionsToChange: number;
     seekingRangeOfSelectedDimension: number;
     seekingMemoryPool: number;
