@@ -1,134 +1,13 @@
 import * as mersenneTwister from './node_modules/mersenne-twister';
 
-class Position {
-    private x: number;
-    private y: number;
-
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
-
-    getX(): number {
-        return this.x;
-    }
-    setX(x: number): void {
-        this.x = x;
-    }
-    getY(): number {
-        return this.y;
-    }
-    setY(y: number): void {
-        this.y = y;
-    }
-    getPosition(): Position {
-        return this;
-    }
-    setPosition(x: number, y: number) {
-        this.setX(x);
-        this.setY(y);
-    }
-    doRandomPosition(): Position {
-        return new Position(mersenneTwister.random(), mersenneTwister.random());
-    }
-}
 
 let results: Position[];
 let running: Boolean;
 let finished: Boolean;
 
 
-class Cat {
-    private position: Position;
-    private fitnessValue: number;
-    private velocity: Position;
-    private mode: Boolean;
-    private selectionProperty: number;
 
-    constructor (position: Position, velocity: Position) {
-        this.position = position;
-        this.fitnessValue = 10000;
-        this.velocity = velocity;
-    }
 
-    setMode(mode: Boolean) {
-        this.mode = mode;
-    }
-    getMode(): Boolean {
-        return this.mode;
-    }
-    getPosition(): Position {
-        return this.position;
-    }
-    setPosition(position: Position) {
-        this.position = position;
-    }
-    getVelocity(): Position {
-        return this.velocity;
-    }
-    setVelocity(velocity: Position): void {
-        this.velocity = velocity;
-    }
-    calculateFitness(): number {
-
-        //TODO
-        
-        return this.fitnessValue;
-    }
-
-    setSelectionProb(selectionProb: number) {
-        this.selectionProperty = selectionProb;
-    }
-    getSelectionProb(): number {
-        return this.selectionProperty;
-    }
-}
-
-interface ITracingMode {
-    trace: (cat: Cat, xbest: Position) => void;
-}
-
-class ClassicalTracingMode implements ITracingMode {
-    private r: number;
-    private c: number;
-    private searchDomain: Position;
-
-    constructor(c: number, searchDomain: Position) {
-        this.c = c;
-        this.searchDomain = searchDomain;
-    }
-
-    private updateVelocity(actualVelocity: Position, xbest: Position): Position {
-        let newVelocity = new Position(0,0);
-        newVelocity.setX(actualVelocity.getX() + this.r * this.c * (xbest.getX() - actualVelocity.getX()));
-        newVelocity.setY(actualVelocity.getY() + this.r * this.c * (xbest.getY() - actualVelocity.getY()));
-        return newVelocity;
-    }
-
-    private checkVelocity(cat: Cat, velocity: Position): Position {
-        let newPosition = new Position(0,0);
-        newPosition.setX(cat.getPosition().getX() + velocity.getX());
-        newPosition.setY(cat.getPosition().getY() + velocity.getY());
-        if(newPosition.getX() < this.searchDomain.getX()) {
-            newPosition.setX(this.searchDomain.getX());
-        }
-        if(newPosition.getY() < this.searchDomain.getX()) {
-            newPosition.setY(this.searchDomain.getX());
-        }
-        if(newPosition.getX() > this.searchDomain.getY()) {
-            newPosition.setX(this.searchDomain.getY());
-        }
-        if(newPosition.getY() > this.searchDomain.getY()) {
-            newPosition.setY(this.searchDomain.getY());
-        }
-        return newPosition;
-    }
-
-    trace(cat: Cat, xbest: Position): void {
-        this.r = mersenneTwister.random();
-        cat.setPosition(this.checkVelocity(cat, this.updateVelocity(cat.getVelocity(), xbest)));
-    }
-}
 
 interface ISeekingMode {
     seek: (cat: Cat, fitnessMax: number, fitnessMin: number) => void;
