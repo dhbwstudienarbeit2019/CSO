@@ -10,6 +10,14 @@ export class Position implements Point {
         console.log(Position.mersenneTwister);
     }
 
+    subtract(x: number, y: number) {
+        return new Position(this.x - x, this.y - y);
+    }
+
+    add(x: number, y: number) {
+        return new Position(this.x + x, this.y + y);
+    }
+
     static doRandomPosition(): Position {
         return new Position(Position.mersenneTwister.random(), Position.mersenneTwister.random());
     }

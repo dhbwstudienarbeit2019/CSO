@@ -1,39 +1,39 @@
-import {Point} from "./message.interface";
+import {Position} from "./Point";
 
 export class Cat {
-    private position: Point;
-    private fitnessValue: number;
-    private velocity: Point;
-    private mode: Boolean;
+    private position: Position;
+    private readonly fitnessValue: number;
+    private velocity: Position;
+    private mode: boolean;
     private selectionProperty: number;
 
-    constructor(position: Point, velocity: Point) {
+    constructor(position: Position, velocity: Position) {
         this.position = position;
         this.fitnessValue = 10000;
         this.velocity = velocity;
     }
 
-    setMode(mode: Boolean) {
+    public set Mode(mode: boolean) {
         this.mode = mode;
     }
 
-    getMode(): Boolean {
+    public get Mode(): boolean {
         return this.mode;
     }
 
-    getPosition(): Point {
+    public get Position(): Position {
         return this.position;
     }
 
-    setPosition(position: Point) {
+    public set Position(position: Position) {
         this.position = position;
     }
 
-    getVelocity(): Point {
+    public get Velocity(): Position {
         return this.velocity;
     }
 
-    setVelocity(velocity: Point): void {
+    public set Velocity(velocity: Position) {
         this.velocity = velocity;
     }
 
@@ -44,11 +44,11 @@ export class Cat {
         return this.fitnessValue;
     }
 
-    setSelectionProb(selectionProb: number) {
+    public set SelectionProb(selectionProb: number) {
         this.selectionProperty = selectionProb;
     }
 
-    getSelectionProb(): number {
+    public get SelectionProb(): number {
         return this.selectionProperty;
     }
 }

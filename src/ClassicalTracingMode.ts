@@ -21,17 +21,17 @@ export class ClassicalTracingMode implements ITracingMode {
     }
 
     private checkVelocity(cat: Cat, velocity: Position): Position {
-        const catPosition = cat.getPosition();
+        // <# TO
+        const catPosition = cat.Position;
         const limit = (x) => ClassicalTracingMode.limitRange(x, this.searchDomain.x, this.searchDomain.x);
-        let newPosition = new Position(
+        return new Position(
             limit(catPosition.x),
             limit(catPosition.y)
         );
-        return newPosition;
     }
 
     trace(cat: Cat, xbest: Position): void {
-        this.r =  MersenneTwister.random();
-        cat.setPosition(this.checkVelocity(cat, this.updateVelocity(cat.getVelocity(), xbest)));
+        this.r = MersenneTwister.random();
+        cat.Position = this.checkVelocity(cat, this.updateVelocity(cat.Velocity, xbest));
     }
 }
