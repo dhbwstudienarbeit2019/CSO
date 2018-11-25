@@ -37,6 +37,7 @@ let searchDomain: {min: Point, max: Point};
 
 function runCode(): Point[] {
     let iterationCounter = 0;
+    let minimumReached = false;
 
     let seekingMode = new ClassicalSeekingMode(config.seekingMemoryPool, config.seekingRangeOfSelectedDimension, config.countsOfDimensionsToChange, config.selfPositionConsidering);
     let tracingMode = new ClassicalTracingMode(config.constantNumber, searchDomain);
@@ -50,7 +51,7 @@ function runCode(): Point[] {
         this.cats[i] = new Cat(Position.doRandomPosition(), Position.doRandomPosition(), functionToOptimize);
     }
 
-    while(iterationCounter < config.maximumNumberOfIterations) {
+    while(!minimumReached && iterationCounter < config.maximumNumberOfIterations) {
 
         for(let i = 0; i < config.numberOfCats; i++) {
             if(cats[i].calculateFitness() < fitnessValueBest) {
@@ -80,6 +81,17 @@ function runCode(): Point[] {
         }
 
         iterationCounter++;
+
+        if(iterationCounter >= 40) {
+            for(let i = iterationCounter; i > (iterationCounter - 40);i--) {
+                if(results[i] != results[i-1]) {
+                    minimumReached = false;
+                    break;
+                } else {
+                    minimumReached = true;
+                }
+            }
+        }
     }
 
     isRunning = false;
