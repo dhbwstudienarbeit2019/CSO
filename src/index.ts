@@ -33,7 +33,7 @@ let config: Config;
 
 let functionToOptimize: (point: Point) => number;
 
-let searchDomain: Position;
+let searchDomain: {min: Point, max: Point};
 
 function runCode(): Point[] {
     let iterationCounter = 0;

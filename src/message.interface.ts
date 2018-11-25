@@ -10,7 +10,7 @@ export interface StartMessage {
     action: 'start' | 'abort';
     config: Config;
     optimization: (point: Point) => number;
-    searchDomain: Position;
+    searchDomain: {min: Point, max: Point};
 }
 
 export interface ResultMessage {

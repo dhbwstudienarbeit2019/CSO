@@ -1,5 +1,6 @@
 import {Cat} from "./cat";
 import {Position} from "./Point";
+import {Point} from "./message.interface";
 import {ITracingMode} from "./ITracingMode.interface";
 import * as MersenneTwister from 'mersenne-twister';
 
@@ -7,7 +8,7 @@ import * as MersenneTwister from 'mersenne-twister';
 export class ClassicalTracingMode implements ITracingMode {
     private r: number;
 
-    constructor(private readonly c: number, private readonly searchDomain: Position) {
+    constructor(private readonly c: number, private readonly searchDomain: {min: Point, max: Point}) {
     }
 
     private updateVelocity(actualVelocity: Position, xbest: Position): Position {
@@ -21,12 +22,12 @@ export class ClassicalTracingMode implements ITracingMode {
     }
 
     private checkVelocity(cat: Cat, velocity: Position): Position {
-        // <# TO
         const catPosition = cat.Position;
-        const limit = (x) => ClassicalTracingMode.limitRange(x, this.searchDomain.x, this.searchDomain.y);
+        const limitx = (x) => ClassicalTracingMode.limitRange(x, this.searchDomain.min.x, this.searchDomain.max.x);
+        const limity = (y) => ClassicalTracingMode.limitRange(y, this.searchDomain.min.y, this.searchDomain.max.y);
         return new Position(
-            limit(catPosition.x),
-            limit(catPosition.y)
+            limitx(catPosition.x),
+            limity(catPosition.y)
         );
     }
 
