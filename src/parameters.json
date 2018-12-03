@@ -1,69 +1,76 @@
 {
-    "$scheme": "https://raw.githubusercontent.com/dhbwstudienarbeit2019/frontend/parameter-scheme/frontend/src/schema/parameters.schema.json",
-    "item": [
-      {
-        "name": "maximumNumberOfIterations",
-        "description": "maximum number of iterations for optimization",
-        "parameter": {
-          "value": 500
-        }
-      },
-      {
-        "name": "numberOfCats",
-        "description": "how many cats should be in the swarm",
-        "parameter": {
-          "minimum": 1,
-          "maximum": 1000,
-          "value": 1
-        }
-      },
-      {
-        "name": "mixtureRatio",
-        "description": "percentage of cats in tracing mode (should be really small)",
-        "parameter": {
-            "minimum": 0,
-            "maximum": 100,
-            "value": 0.5
-        }
-      },
-      {
-        "name": "constantNumber",
-        "description": "constant number for tracing mode",
-        "parameter": {
-            "value": 2
-        }
-      },
-      {
-        "name": "selfPositionConsidering",
-        "description": "in seeking mode: should the cat be able to stay where it is or not",
-        "parameter": {
-          "value": true
-        }
-      },
-      {
-        "name": "countsOfDimensionsToChange",
-        "description": "in seeking mode: how many dimensions should be changed",
-        "parameter": {
-          "minimum": 1,
-          "maximum": 2,
-          "value": 2
-        }
-      },
-      {
-        "name": "seekingRangeOfSelectedDimension",
-        "description": "in seeking mode: how many percent should the cat be moving from origin position",
-        "parameter": {
-          "minimum": 1,
-          "maximum": 100,
-          "value": 15
-        }
-      },
-      {
-        "name": "seekingMemoryPool",
-        "description": "in seeking mode: how many copies of the origin cat should be there",
-        "parameter": {
-          "value": 15
-        }
+  "$scheme": "https://raw.githubusercontent.com/dhbwstudienarbeit2019/frontend/parameter-scheme/frontend/src/schema/parameters.schema.json",
+  "item": [{
+      "name": "maximumNumberOfIterations",
+      "title": "Maximum Nr. of Iterations",
+      "description": "maximum number of iterations for optimization",
+      "parameter": {
+        "value": 500
       }
-    ]
-  }
+    },
+    {
+      "name": "numberOfCats",
+      "title": "Number of Cats",
+      "description": "how many cats should be in the swarm",
+      "parameter": {
+        "minimum": 1,
+        "maximum": 1000,
+        "value": 1
+      }
+    },
+    {
+      "name": "mixtureRatio",
+      "title": "Mixture Ration",
+      "description": "percentage of cats in tracing mode (should be really small)",
+      "parameter": {
+        "minimum": 0,
+        "maximum": 100,
+        "value": 0.5
+      }
+    },
+    {
+      "name": "constantNumber",
+      "title": "Constant Number",
+      "description": "constant number for tracing mode",
+      "parameter": {
+        "value": 2
+      }
+    },
+    {
+      "name": "selfPositionConsidering",
+      "title": "Self Position Considering",
+      "description": "in seeking mode: should the cat be able to stay where it is or not",
+      "parameter": {
+        "enabled": true
+      }
+    },
+    {
+      "name": "countsOfDimensionsToChange",
+      "title": "Dimensions to Change",
+      "description": "in seeking mode: how many dimensions should be changed",
+      "parameter": {
+        "minimum": 1,
+        "maximum": 2,
+        "value": 2
+      }
+    },
+    {
+      "name": "seekingRangeOfSelectedDimension",
+      "title": "Seeking Range of selected Dimension",
+      "description": "in seeking mode: how many percent should the cat be moving from origin position",
+      "parameter": {
+        "minimum": 1,
+        "maximum": 100,
+        "value": 15
+      }
+    },
+    {
+      "name": "seekingMemoryPool",
+      "title": "Seeking Memory Pool",
+      "description": "in seeking mode: how many copies of the origin cat should be there",
+      "parameter": {
+        "value": 15
+      }
+    }
+  ]
+}
