@@ -4,7 +4,7 @@ import { Position } from "./Point";
 import * as MersenneTwister from 'mersenne-twister';
 
 export class ClassicalSeekingMode implements ISeekingMode {
-    private copies: Cat[];
+    // private copies: Cat[];
     private fitnessValues: number[];
     private readonly mersenneTwister = new MersenneTwister();
     private j: number;
@@ -15,19 +15,20 @@ export class ClassicalSeekingMode implements ISeekingMode {
         private readonly selfPositionConsidering: boolean,
     ) { }
 
-    private createCopies(cat: Cat): void {
+    private createCopies(cat: Cat): Cat[] {
 
         this.j = this.seekingMemoryPool;
-        this.copies = []//new Cat[this.seekingMemoryPool];
+        const copies = []//new Cat[this.seekingMemoryPool];
         if (this.selfPositionConsidering) {
             this.j = this.j - 1;
-            this.copies[this.j] = cat;
+            copies[this.j] = cat;
         }
         for (let i = 0; i < this.j; i++) {
             const position = Position.doRandomPosition();
             const velocity = Position.doRandomPosition();
-            this.copies[i] = new Cat(position, velocity, cat.FunctionToOptimize);
+            copies[i] = new Cat(position, velocity, cat.FunctionToOptimize);
         }
+        return copies;
     }
 
     private changePosition(cat: Cat) {
@@ -54,24 +55,24 @@ export class ClassicalSeekingMode implements ISeekingMode {
         // console.log({ from: catPos, to: cat.Position });
     }
 
-    private calculateSelectionProb(allTheSame: Boolean, fitnessMax: number, fitnessMin: number): void {
+    private calculateSelectionProb(copies: Cat[], allTheSame: Boolean, fitnessMax: number, fitnessMin: number): void {
         if (allTheSame) {
-            this.copies.forEach(cat => cat.SelectionProb = 1);
+            copies.forEach(cat => cat.SelectionProb = 1);
         } else {
-            this.copies.forEach(cat =>
+            copies.forEach(cat =>
                 cat.SelectionProb = Math.abs((cat.calculateFitness() - fitnessMin) / (fitnessMax - fitnessMin))
             );
         }
     }
 
-    private chooseNewPosition(): Position {
+    private chooseNewPosition(copies: Cat[]): Position {
         let selectedCat: number;
-        let probability = new Array(this.seekingMemoryPool + 1);
+        let probability = []// new Array(this.seekingMemoryPool + 1);
         probability[0] = 0;
         for (let i = 0; i < this.seekingMemoryPool; i++) {
-            probability[i + 1] = this.copies[i].SelectionProb + probability[i];
+            probability[i + 1] = copies[i].SelectionProb + probability[i];
         }
-        const twist = this.mersenneTwister.random();
+        const twist = this.mersenneTwister.random() * Math.max(...probability);
         let selected = false;
         while (!selected) {
             for (let i = 0; i < probability.length; i++) {
@@ -81,30 +82,30 @@ export class ClassicalSeekingMode implements ISeekingMode {
                 }
             }
         }
-        return this.copies[selectedCat].Position;
+        console.log({
+            selectedCat,
+         //   copies: copies.map(x => { return { pos: x.Position, prob: x.SelectionProb } })
+        });
+        return copies[selectedCat].Position;
     }
 
     seek(cat: Cat, fitnessMax: number, fitnessMin: number): void {
         let allTheSame: Boolean;
         this.fitnessValues = new Array(this.seekingMemoryPool);
-        this.createCopies(cat);
+        const copies: Cat[] = this.createCopies(cat);
         for (let i = 0; i < this.j; i++) {
-            this.changePosition(this.copies[i]);
-            this.fitnessValues[i] = this.copies[i].calculateFitness();
+            this.changePosition(copies[i]);
+            this.fitnessValues[i] = copies[i].calculateFitness();
         }
         if (this.selfPositionConsidering) {
-            this.fitnessValues[this.j] = this.copies[this.j].calculateFitness();
+            this.fitnessValues[this.j] = copies[this.j].calculateFitness();
         }
         for (let i = 1; i < this.fitnessValues.length; i++) {
-            if (this.fitnessValues[i - 1] != this.fitnessValues[i]) {
-                allTheSame = false;
-                break;
-            } else {
-                allTheSame = true;
-            }
+            allTheSame = (this.fitnessValues[i - 1] === this.fitnessValues[i]);
         }
-        this.calculateSelectionProb(allTheSame, fitnessMax, fitnessMin);
-        cat.Position = this.chooseNewPosition();
-
+        this.calculateSelectionProb(copies, allTheSame, fitnessMax, fitnessMin);
+        const newPos = this.chooseNewPosition(copies);
+        console.log({ newPos, catpos: cat.Position });
+        cat.Position = this.chooseNewPosition(copies);
     }
 }

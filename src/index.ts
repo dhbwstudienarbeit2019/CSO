@@ -24,8 +24,8 @@ function runCode(): Point[] {
     let lastResult: Position;
     let bestPosition: Position;
     let results: Position[] = [];
-    let fitnessValueBest = 1000;
-    let fitnessValueLeast = 0;
+    let fitnessValueBest = Number.POSITIVE_INFINITY;
+    let fitnessValueLeast = Number.NEGATIVE_INFINITY;
     const minimumEpsilon = 1e-5;
 
     for (let i = 0; i < config.numberOfCats; i++) {
@@ -64,18 +64,24 @@ function runCode(): Point[] {
         else {
             console.log([
                 lastResult, bestPosition,
+                fitnessValueBest, fitnessValueLeast,
                 lastResult && bestPosition && lastResult.subtract(bestPosition.x, bestPosition.y),
                 lastResult && bestPosition && !lastResult.compareToPoint(bestPosition, minimumEpsilon)]
             );
         }
         for (let i = 0; i < config.numberOfCats; i++) {
             if (cats[i].Mode) {
+                console.log(cats[i]);
                 seekingMode.seek(cats[i], fitnessValueBest, fitnessValueLeast);
+                console.log(cats[i]);
+                break;
             } else {
+                if (bestPosition === undefined) {
+                    console.log('no besposition!');
+                }
                 tracingMode.trace(cats[i], bestPosition);
             }
         }
-        console.log(new Date().getMilliseconds());
     }
     isRunning = false;
     isFinished = true;
