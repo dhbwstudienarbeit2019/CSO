@@ -16,7 +16,7 @@
     "karma-typescript": "^3.0.13",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.4",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
     "compile": "(tsc || true) && node node.js",
