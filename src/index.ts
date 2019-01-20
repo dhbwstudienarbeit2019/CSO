@@ -71,9 +71,7 @@ function runCode(): Point[] {
         }
         for (let i = 0; i < config.numberOfCats; i++) {
             if (cats[i].Mode) {
-                console.log(cats[i]);
                 seekingMode.seek(cats[i], fitnessValueBest, fitnessValueLeast);
-                console.log(cats[i]);
                 break;
             } else {
                 if (bestPosition === undefined) {
@@ -83,9 +81,6 @@ function runCode(): Point[] {
             }
         }
     }
-    isRunning = false;
-    isFinished = true;
-
     return results;
 }
 
@@ -110,7 +105,6 @@ addEventListener('message', (message: { data: any }) => {
 });
 
 let isRunning = false;
-let isFinished = false;
 
 let config: Config;
 let functionToOptimize: (x: number, y: number) => number;
