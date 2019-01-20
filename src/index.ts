@@ -51,7 +51,7 @@ function runCode(): Point[] {
             if (fitness > fitnessValueLeast) {
                 fitnessValueLeast = fitness;
             }
-            cat.Mode = mersenneTwister.random() <= config.mixtureRatio;
+            cat.Mode = mersenneTwister.random() >= config.mixtureRatio;
         }
         /*  console.log(cats);
           break;*/
