@@ -4,7 +4,6 @@ import { Position } from "./Point";
 import * as MersenneTwister from 'mersenne-twister';
 
 export class ClassicalSeekingMode implements ISeekingMode {
-    // private copies: Cat[];
     private fitnessValues: number[];
     private readonly mersenneTwister = new MersenneTwister();
     private j: number;
@@ -18,7 +17,7 @@ export class ClassicalSeekingMode implements ISeekingMode {
     private createCopies(cat: Cat): Cat[] {
 
         this.j = this.seekingMemoryPool;
-        const copies = []//new Cat[this.seekingMemoryPool];
+        const copies = []
         if (this.selfPositionConsidering) {
             this.j = this.j - 1;
             copies[this.j] = cat;
@@ -52,7 +51,6 @@ export class ClassicalSeekingMode implements ISeekingMode {
                 randomOffset(catPos.y, catPos.y * this.seekingRangeOfSelectedDimension)
             );
         }
-        // console.log({ from: catPos, to: cat.Position });
     }
 
     private calculateSelectionProb(copies: Cat[], allTheSame: Boolean, fitnessMax: number, fitnessMin: number): void {
@@ -67,21 +65,22 @@ export class ClassicalSeekingMode implements ISeekingMode {
 
     private chooseNewPosition(copies: Cat[]): Position {
         let selectedCat: number;
-        let probability = []// new Array(this.seekingMemoryPool + 1);
+        let probability = []
         probability[0] = 0;
         for (let i = 0; i < this.seekingMemoryPool; i++) {
             probability[i + 1] = copies[i].SelectionProb + probability[i];
         }
-        const twist = this.mersenneTwister.random() * Math.max(...probability);
+        let probhigh = probability[this.seekingMemoryPool - 1];
+        for (let i = 0; i < this.seekingMemoryPool; i++) {
+            probability[i] = probability[i] / probhigh;
+        }
+        const twist = this.mersenneTwister.random();
         for (let i = 0; i < probability.length; i++) {
             if (probability[i] > twist) {
                 selectedCat = i - 1;
+                break;
              }
        }
-        console.log({
-            selectedCat,
-         //   copies: copies.map(x => { return { pos: x.Position, prob: x.SelectionProb } })
-        });
         return copies[selectedCat].Position;
     }
 
@@ -103,8 +102,8 @@ export class ClassicalSeekingMode implements ISeekingMode {
             }
         }
         this.calculateSelectionProb(copies, allTheSame, fitnessMax, fitnessMin);
-        const newPos = this.chooseNewPosition(copies);
-        console.log({ newPos, catpos: cat.Position });
+        /* const newPos = this.chooseNewPosition(copies);
+        console.log({ newPos, catpos: cat.Position }); */
         cat.Position = this.chooseNewPosition(copies);
     }
 }
