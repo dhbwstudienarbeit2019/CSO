@@ -73,15 +73,11 @@ export class ClassicalSeekingMode implements ISeekingMode {
             probability[i + 1] = copies[i].SelectionProb + probability[i];
         }
         const twist = this.mersenneTwister.random() * Math.max(...probability);
-        let selected = false;
-        while (!selected) {
-            for (let i = 0; i < probability.length; i++) {
-                if (probability[i] > twist) {
-                    selectedCat = i - 1;
-                    selected = true;
-                }
-            }
-        }
+        for (let i = 0; i < probability.length; i++) {
+            if (probability[i] > twist) {
+                selectedCat = i - 1;
+             }
+       }
         console.log({
             selectedCat,
          //   copies: copies.map(x => { return { pos: x.Position, prob: x.SelectionProb } })
@@ -102,6 +98,9 @@ export class ClassicalSeekingMode implements ISeekingMode {
         }
         for (let i = 1; i < this.fitnessValues.length; i++) {
             allTheSame = (this.fitnessValues[i - 1] === this.fitnessValues[i]);
+            if (!allTheSame) {
+                break;
+            }
         }
         this.calculateSelectionProb(copies, allTheSame, fitnessMax, fitnessMin);
         const newPos = this.chooseNewPosition(copies);
