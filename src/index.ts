@@ -48,7 +48,7 @@ function runCode(): Point[] {
                 fitnessValueBest = fitness;
                 bestPosition = cat.Position;
             }
-            else if (fitness > fitnessValueLeast) {
+            if (fitness > fitnessValueLeast) {
                 fitnessValueLeast = fitness;
             }
             cat.Mode = mersenneTwister.random() <= config.mixtureRatio;
@@ -77,7 +77,7 @@ function runCode(): Point[] {
                 break;
             } else {
                 if (bestPosition === undefined) {
-                    console.log('no besposition!');
+                    console.log('no bestposition!');
                 }
                 tracingMode.trace(cats[i], bestPosition);
             }
