@@ -25,12 +25,12 @@ export class ClassicalTracingMode implements ITracingMode {
     }
 
     private checkVelocity(cat: Cat, velocity: Position): Position {
-        const catPosition = cat.Position;
+        const newPosition = velocity;
         const limitx = (x) => ClassicalTracingMode.limitRange(x, this.searchDomain.min.x, this.searchDomain.max.x);
         const limity = (y) => ClassicalTracingMode.limitRange(y, this.searchDomain.min.y, this.searchDomain.max.y);
         return new Position(
-            limitx(catPosition.x),
-            limity(catPosition.y)
+            limitx(newPosition.x),
+            limity(newPosition.y)
         );
     }
 
