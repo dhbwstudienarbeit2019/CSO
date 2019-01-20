@@ -24,8 +24,8 @@
       "description": "percentage of cats in tracing mode (should be really small)",
       "parameter": {
         "minimum": 0,
-        "maximum": 100,
-        "value": 0.5
+        "maximum": 1,
+        "value": 0.2
       }
     },
     {
