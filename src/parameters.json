@@ -9,6 +9,14 @@
       }
     },
     {
+      "name": "numberForCheckMinimumReached",
+      "title": "Number of Cats to check if the minimum is reached",
+      "description": "how many cats should be viewed to check, if they don't move anymore",
+      "parameter": {
+        "value": 20
+      }
+    },
+    {
       "name": "numberOfCats",
       "title": "Number of Cats",
       "description": "how many cats should be in the swarm",

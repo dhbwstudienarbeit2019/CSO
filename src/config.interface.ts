@@ -1,5 +1,6 @@
 export interface Config {
     maximumNumberOfIterations: number;
+    numberForCheckMinimumReached: number;
     numberOfCats: number;
     mixtureRatio: number;
     constantNumber: number;

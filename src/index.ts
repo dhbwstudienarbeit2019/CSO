@@ -23,7 +23,7 @@ function runCode(): Point[] {
     let cats: Cat[] = [];
     let lastResult: Position;
     let bestPosition: Position;
-    let lastTwentyCats: number[] = [];
+    let lastCats: number[] = [];
     let results: Position[] = [];
     let fitnessValueBest = Number.POSITIVE_INFINITY;
     let fitnessValueLeast = Number.NEGATIVE_INFINITY;
@@ -81,10 +81,10 @@ function runCode(): Point[] {
                 tracingMode.trace(cats[i], bestPosition);
             }
         }
-        lastTwentyCats[iterationCounter % 20] = fitnessValueBest;
-        if (iterationCounter > 19) {
-            for (let i = 0; i < lastTwentyCats.length; i++) {
-                if (Math.abs(lastTwentyCats[i] - lastTwentyCats[i + 1]) > minimumEpsilon) {
+        lastCats[iterationCounter % config.numberForCheckMinimumReached] = fitnessValueBest;
+        if (iterationCounter > (config.numberForCheckMinimumReached - 1)) {
+            for (let i = 0; i < lastCats.length; i++) {
+                if (Math.abs(lastCats[i] - lastCats[i + 1]) > minimumEpsilon) {
                     minimumReached = false;
                     break;
                 }
