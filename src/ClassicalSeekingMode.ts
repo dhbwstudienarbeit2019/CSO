@@ -53,7 +53,14 @@ export class ClassicalSeekingMode implements ISeekingMode {
         }
     }
 
-    private calculateSelectionProb(copies: Cat[], allTheSame: Boolean, fitnessMax: number, fitnessMin: number): void {
+    private calculateSelectionProb(copies: Cat[], fitnessMax: number, fitnessMin: number): void {
+        let allTheSame = false;
+        for (let i = 1; i < this.fitnessValues.length; i++) {
+            allTheSame = (this.fitnessValues[i - 1] === this.fitnessValues[i]);
+            if (!allTheSame) {
+                break;
+            }
+        }
         if (allTheSame) {
             copies.forEach(cat => cat.SelectionProb = 1);
         } else {
@@ -95,15 +102,7 @@ export class ClassicalSeekingMode implements ISeekingMode {
         if (this.selfPositionConsidering) {
             this.fitnessValues[this.j] = copies[this.j].calculateFitness();
         }
-        for (let i = 1; i < this.fitnessValues.length; i++) {
-            allTheSame = (this.fitnessValues[i - 1] === this.fitnessValues[i]);
-            if (!allTheSame) {
-                break;
-            }
-        }
-        this.calculateSelectionProb(copies, allTheSame, fitnessMax, fitnessMin);
-        /* const newPos = this.chooseNewPosition(copies);
-        console.log({ newPos, catpos: cat.Position }); */
+        this.calculateSelectionProb(copies, fitnessMax, fitnessMin);
         cat.Position = this.chooseNewPosition(copies);
     }
 }
