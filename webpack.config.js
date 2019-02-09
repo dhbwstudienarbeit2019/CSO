@@ -46,13 +46,13 @@ module.exports = {
                 toType: 'file'
             },
             {
-                from: './assets/EquationPi.gif',
-                to: './assets/EquationPi.gif',
+                from: './EquationPi.gif',
+                to: './EquationPi.gif',
                 toType: 'file'
             },
             {
-                from: './assets/cso-pap.jpg',
-                to: './assets/cso-pap.jpg',
+                from: './cso-pap.jpg',
+                to: './cso-pap.jpg',
                 toType: 'file'
             }
         ])

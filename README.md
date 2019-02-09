@@ -12,7 +12,7 @@
    2. For each copy, according to CDC, randomly plus or minus SRD percent the present values and replace the old ones.
    3. Calculate the fitness values (FS) of all candidate points.
    4. If all FS are not exactly equal, calculate the probability of each candidate point by 
-![alt text](assets/EquationPi.gif "Equation for P_i")
+![alt text](EquationPi.gif "Equation for P_i")
    ,
    
       otherwise set all the selecting probability of each candidate point be 1.
@@ -32,7 +32,7 @@
 
 ## Algorithm
 
-![alt text <](assets/cso-pap.jpg "CSO programm flow")
+![alt text <](cso-pap.jpg "CSO programm flow")
 * N cats are created.
 * The positions, velocities and the flags for cats are initialized.
 * According to the fitness function of each cat is evaluated and the best cat is kept into memory (X<sub>best</sub>).
