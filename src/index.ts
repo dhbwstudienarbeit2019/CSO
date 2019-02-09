@@ -6,8 +6,8 @@ import { ClassicalSeekingMode } from "./ClassicalSeekingMode";
 import { ClassicalTracingMode } from "./ClassicalTracingMode";
 import * as MersenneTwister from 'mersenne-twister';
 
-declare function addEventListener(event: string, handler: (any) => void): void;
-declare function postMessage(data: any);
+export declare function addEventListener(event: string, handler: (any) => void): void;
+export declare function postMessage(data: any);
 
 function runCode(): Point[] {
     console.log('runcode');

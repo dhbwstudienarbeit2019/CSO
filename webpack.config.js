@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const resolvedSchema = require('json-schema-loader');
 module.exports = {
     mode: 'development',
@@ -9,8 +10,7 @@ module.exports = {
         filename: "index.js"
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.ts/,
                 loader: "ts-loader"
             },
@@ -29,17 +29,33 @@ module.exports = {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
         port: 4201,
-        headers: { "Access-Control-Allow-Origin": "*" }
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        }
     },
     plugins: [
+        new CleanWebpackPlugin(['dist']),
         new CopyWebpackPlugin([{
-            from: 'src/parameters.json', to: './parameters.json',
-            toType: 'file'
-        },
+                from: 'src/parameters.json',
+                to: './parameters.json',
+                toType: 'file'
+            },
             {
-                from: './README.md', to: './README.md',
+                from: './README.md',
+                to: './README.md',
+                toType: 'file'
+            },
+            {
+                from: './assets/EquationPi.gif',
+                to: './assets/EquationPi.gif',
+                toType: 'file'
+            },
+            {
+                from: './assets/cso-pap.jpg',
+                to: './assets/cso-pap.jpg',
                 toType: 'file'
             }
-        ])]
+        ])
+    ]
 
 };
