@@ -14,12 +14,12 @@ function runCode(): Point[] {
     const mersenneTwister = new MersenneTwister();
     let minimumReached = false;
 
-    const seekingMode = new ClassicalSeekingMode(
+    let seekingMode = new ClassicalSeekingMode(
         config.seekingMemoryPool,
         config.seekingRangeOfSelectedDimension,
         config.countsOfDimensionsToChange,
         config.selfPositionConsidering);
-    const tracingMode = new ClassicalTracingMode(config.constantNumber, searchDomain);
+    let tracingMode = new ClassicalTracingMode(config.constantNumber, searchDomain);
     let cats: Cat[] = [];
     let lastResult: Position;
     let bestPosition: Position;
@@ -54,7 +54,8 @@ function runCode(): Point[] {
             }
             cat.Mode = mersenneTwister.random() >= config.mixtureRatio;
         }
-        
+        /*  console.log(cats);
+          break;*/
         if (bestPosition !== undefined &&
             (lastResult === undefined ||
                 !lastResult.compareToPoint(bestPosition, minimumEpsilon))) {
@@ -96,7 +97,7 @@ function runCode(): Point[] {
 
 addEventListener('message', (message: { data: any }) => {
     try {
-        const data = <StartMessage>message.data;
+        let data = <StartMessage>message.data;
         config = data.config;
         functionToOptimize = new Function('return ' + data.func.toString())();
         searchDomain = data.searchArea;
