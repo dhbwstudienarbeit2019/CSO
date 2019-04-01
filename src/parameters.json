@@ -22,7 +22,7 @@
       "description": "how many cats should be in the swarm",
       "parameter": {
         "minimum": 1,
-        "maximum": 1000,
+        "maximum": 500,
         "value": 20
       }
     },
