@@ -28,11 +28,11 @@
     },
     {
       "name": "mixtureRatio",
-      "title": "Mixture Ration",
+      "title": "Mixture Ratio",
       "description": "percentage of cats in tracing mode (should be really small)",
       "parameter": {
-        "minimum": 0,
-        "maximum": 1,
+        "minimum": 0.0,
+        "maximum": 1.0,
         "value": 0.2
       }
     },
