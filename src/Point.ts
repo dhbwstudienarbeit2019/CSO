@@ -1,6 +1,5 @@
 import { Point } from "./message.interface";
-import * as MersenneTwister from 'mersenne-twister';
-
+const MersenneTwister = require('mersenne-twister');
 
 export class Position implements Point {
     static readonly mersenneTwister = new MersenneTwister();

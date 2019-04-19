@@ -2,17 +2,21 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const resolvedSchema = require('json-schema-loader');
-module.exports = {
-    mode: 'development',
-    entry: './src',
-    output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "index.js"
-    },
-    module: {
-        rules: [{
+module.exports = env => {
+    return {
+        mode: 'development',
+        entry: './src',
+        output: {
+            path: path.resolve(__dirname, "dist"),
+            filename: "index.js"
+        },
+        module: {
+            rules: [{
                 test: /\.ts/,
-                loader: "ts-loader"
+                loader: "ts-loader",
+                options:{
+                    configFile: env === 'test' ? 'tsconfig.spec.json' : 'tsconfig.app.json'
+                }
             },
             {
                 test: /\.json/,
@@ -20,22 +24,22 @@ module.exports = {
                 loader: resolvedSchema
             }
 
-        ]
-    },
-    resolve: {
-        extensions: [".ts", ".js"]
-    },
-    devServer: {
-        contentBase: path.join(__dirname, "dist"),
-        compress: true,
-        port: 4201,
-        headers: {
-            "Access-Control-Allow-Origin": "*"
-        }
-    },
-    plugins: [
-        new CleanWebpackPlugin(['dist']),
-        new CopyWebpackPlugin([{
+            ]
+        },
+        resolve: {
+            extensions: [".ts", ".js"]
+        },
+        devServer: {
+            contentBase: path.join(__dirname, "dist"),
+            compress: true,
+            port: 4201,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        },
+        plugins: [
+            new CleanWebpackPlugin(['dist']),
+            new CopyWebpackPlugin([{
                 from: 'src/parameters.json',
                 to: './parameters.json',
                 toType: 'file'
@@ -55,7 +59,8 @@ module.exports = {
                 to: './cso-pap.jpg',
                 toType: 'file'
             }
-        ])
-    ]
+            ])
+        ],
 
+    };
 };

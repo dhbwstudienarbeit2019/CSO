@@ -4,26 +4,35 @@
   "description": "Cat Swarm Optimization",
   "main": "index.js",
   "dependencies": {
+    "@types/node": "^11.13.4",
     "mersenne-twister": "^1.1.0",
     "nodemon": "^1.18.7",
+    "require-context": "^1.1.0",
+    "ts-node": "^8.1.0",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.1.2"
   },
   "devDependencies": {
+    "@types/expect": "^1.20.4",
+    "@types/jasmine": "^3.3.12",
     "clean-webpack-plugin": "^1.0.1",
     "copy-webpack-plugin": "^4.6.0",
+    "jasmine": "^3.4.0",
+    "jasmine-core": "^3.4.0",
+    "jasmine-ts": "^0.3.0",
     "json-schema-loader": "^1.0.0",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.4",
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "compile": "(npx tsc && echo 'Build successfull' || echo 'Build failed' ) && node node.js",
+    "compile": "(npx webpack && echo 'Build successfull' || echo 'Build failed' ) && node node.js",
     "continous-build:bash": "./node_modules/nodemon/bin/nodemon.js -e npx webpack && node node.js",
     "continous-build:windows": "node_modules\\nodemon\\bin\\nodemon.js -e npx ts  --exec \"npm run compile:windows\"",
     "serve": "npx webpack-dev-server",
     "build": "npx webpack",
-    "test": "node node.js"
+    "test-integration": "npx webpack --env=test && node node.js",
+    "test": "npx webpack --env=test && npx jasmine-ts"
   },
   "repository": {
     "type": "git",
