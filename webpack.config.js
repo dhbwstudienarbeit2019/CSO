@@ -5,16 +5,19 @@ const resolvedSchema = require('json-schema-loader');
 module.exports = env => {
     return {
         mode: 'development',
-        entry: './src',
+        entry: env === 'test' ? './test.ts' : './src',
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "index.js"
+            filename: env === 'test' ? '[name].js' : "index.js"
+        },
+        node: {
+            fs: 'empty'
         },
         module: {
             rules: [{
                 test: /\.ts/,
                 loader: "ts-loader",
-                options:{
+                options: {
                     configFile: env === 'test' ? 'tsconfig.spec.json' : 'tsconfig.app.json'
                 }
             },

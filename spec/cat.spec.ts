@@ -4,7 +4,7 @@ import { Position } from "../src/Point";
 
 
 describe('🐱 Cat', () => {
-  var subject: Cat;
+  let subject: Cat;
 
   beforeEach(function () {
     subject = new Cat(<Position>{ x: 0, y: 0 }, <Position>{ x: 1, y: 1 }, (x, y) => x + y);

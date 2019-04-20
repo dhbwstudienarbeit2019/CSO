@@ -5,6 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "@types/node": "^11.13.4",
+    "fs": "0.0.1-security",
+    "karma": "^4.1.0",
+    "karma-edge-launcher": "^0.4.2",
+    "karma-opera-launcher": "^1.0.0",
+    "karma-safari-launcher": "^1.0.0",
+    "karma-safaritechpreview-launcher": "^2.0.2",
+    "karma-spec-reporter": "0.0.32",
     "mersenne-twister": "^1.1.0",
     "nodemon": "^1.18.7",
     "require-context": "^1.1.0",
@@ -21,6 +28,15 @@
     "jasmine-core": "^3.4.0",
     "jasmine-ts": "^0.3.0",
     "json-schema-loader": "^1.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-detect-browsers": "^2.3.3",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-ie-launcher": "^1.0.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-typescript": "^4.0.0",
+    "karma-webpack": "^3.0.5",
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.4",
     "webpack-dev-server": "^3.1.14"
@@ -32,7 +48,8 @@
     "serve": "npx webpack-dev-server",
     "build": "npx webpack",
     "test-integration": "npx webpack --env=test && node node.js",
-    "test": "npx webpack --env=test && npx jasmine-ts"
+    "test-cli": "npx webpack --env=test && npx jasmine-ts",
+    "test": "npx karma start"
   },
   "repository": {
     "type": "git",
