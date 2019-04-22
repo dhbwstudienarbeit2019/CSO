@@ -1,14 +1,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+      "paths": { "*": ["types/*"] },
+    "baseUrl": "./src",
     "outDir": "./dist/",
     "sourceMap": true,
     "declaration": false,
     "module": "commonjs",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": false,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
