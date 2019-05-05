@@ -71,7 +71,6 @@ function runCode(): Point[] {
         for (let i = 0; i < config.numberOfCats; i++) {
             if (cats[i].Mode) {
                 seekingMode.seek(cats[i], fitnessValueBest, fitnessValueLeast);
-                break;
             } else {
                 if (bestPosition === undefined) {
                     console.log('no bestposition!');
