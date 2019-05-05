@@ -15,7 +15,6 @@ export class ClassicalSeekingMode implements ISeekingMode {
     ) { }
 
     private createCopies(cat: Cat): Cat[] {
-
         this.j = this.seekingMemoryPool;
         const copies = []
         if (this.selfPositionConsidering) {
@@ -23,7 +22,7 @@ export class ClassicalSeekingMode implements ISeekingMode {
             copies[this.j] = cat;
         }
         for (let i = 0; i < this.j; i++) {
-            const position = Position.doRandomPosition();
+            const position = cat.Position;
             const velocity = Position.doRandomPosition();
             copies[i] = new Cat(position, velocity, cat.FunctionToOptimize);
         }
@@ -92,7 +91,6 @@ export class ClassicalSeekingMode implements ISeekingMode {
     }
 
     seek(cat: Cat, fitnessMax: number, fitnessMin: number): void {
-        let allTheSame: Boolean;
         this.fitnessValues = new Array(this.seekingMemoryPool);
         const copies: Cat[] = this.createCopies(cat);
         for (let i = 0; i < this.j; i++) {
