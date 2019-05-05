@@ -24,7 +24,7 @@ export class ClassicalTracingMode implements ITracingMode {
         return Math.max(min, Math.min(max, value));
     }
 
-    private checkVelocity(cat: Cat, velocity: Position): Position {
+    private checkVelocity(velocity: Position): Position {
         const newPosition = velocity;
         const limitx = (x) => ClassicalTracingMode.limitRange(x, this.searchDomain.min.x, this.searchDomain.max.x);
         const limity = (y) => ClassicalTracingMode.limitRange(y, this.searchDomain.min.y, this.searchDomain.max.y);
@@ -36,6 +36,6 @@ export class ClassicalTracingMode implements ITracingMode {
 
     trace(cat: Cat, xbest: Position): void {
         this.r = ClassicalTracingMode.mersenneTwister.random();
-        cat.Position = this.checkVelocity(cat, this.updateVelocity(cat.Velocity, xbest));
+        cat.Position = this.checkVelocity(this.updateVelocity(cat.Velocity, xbest));
     }
 }
