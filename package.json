@@ -4,7 +4,7 @@
   "description": "Cat Swarm Optimization",
   "main": "index.js",
   "dependencies": {
-    "@types/node": "^11.13.4",
+    "@types/node": "^11.13.10",
     "fs": "0.0.1-security",
     "karma": "^4.1.0",
     "karma-edge-launcher": "^0.4.2",
